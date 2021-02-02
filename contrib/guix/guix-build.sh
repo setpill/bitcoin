@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 export LC_ALL=C
-set -e -o pipefail
+PS4='[35m:${LINENO}+[0m '
+set -e -x -o pipefail
 
 # Determine the maximum number of jobs to run simultaneously (overridable by
 # environment)

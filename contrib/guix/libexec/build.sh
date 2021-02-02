@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 export LC_ALL=C
-set -e -o pipefail
+PS4='[35m:${LINENO}+[0m '
+set -e -x -o pipefail
 export TZ=UTC
 
 if [ -n "$V" ]; then
