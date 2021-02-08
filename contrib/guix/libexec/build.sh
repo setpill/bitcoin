@@ -129,7 +129,7 @@ export TZ="UTC"
 
 # Build the depends tree, overriding variables that assume multilib gcc
 make -C depends --jobs="$MAX_JOBS" HOST="$HOST" \
-                                   ${V:+V=1} \
+                                   ${V:+V=$V} \
                                    ${SOURCES_PATH+SOURCES_PATH="$SOURCES_PATH"} \
                                    i686_linux_CC=i686-linux-gnu-gcc \
                                    i686_linux_CXX=i686-linux-gnu-g++ \
@@ -213,23 +213,23 @@ export PATH="${BASEPREFIX}/${HOST}/native/bin:${PATH}"
     sed -i.old 's/-lstdc++ //g' config.status libtool src/univalue/config.status src/univalue/libtool
 
     # Build Bitcoin Core
-    make --jobs="$MAX_JOBS" ${V:+V=1}
+    make --jobs="$MAX_JOBS" ${V:+V=$V}
 
     # Perform basic ELF security checks on a series of executables.
-    make -C src --jobs=1 check-security ${V:+V=1}
+    make -C src --jobs=1 check-security ${V:+V=$V}
 
     case "$HOST" in
         *linux*|*mingw*)
             # Check that executables only contain allowed gcc, glibc and libstdc++
             # version symbols for Linux distro back-compatibility.
-            make -C src --jobs=1 check-symbols  ${V:+V=1}
+            make -C src --jobs=1 check-symbols  ${V:+V=$V}
             ;;
     esac
 
     # Make the os-specific installers
     case "$HOST" in
         *mingw*)
-            make deploy ${V:+V=1} BITCOIN_WIN_INSTALLER="${OUTDIR}/${DISTNAME}-win64-setup-unsigned.exe"
+            make deploy ${V:+V=$V} BITCOIN_WIN_INSTALLER="${OUTDIR}/${DISTNAME}-win64-setup-unsigned.exe"
             ;;
     esac
 
@@ -239,7 +239,7 @@ export PATH="${BASEPREFIX}/${HOST}/native/bin:${PATH}"
     INSTALLPATH="${PWD}/installed/${DISTNAME}"
     mkdir -p "${INSTALLPATH}"
     # Install built Bitcoin Core to $INSTALLPATH
-    make install DESTDIR="${INSTALLPATH}" ${V:+V=1}
+    make install DESTDIR="${INSTALLPATH}" ${V:+V=$V}
 
     (
         cd installed

@@ -139,13 +139,8 @@ find output/ -type f -print0 | sort -z | xargs -r0 sha256sum
 
 * _**V**_
 
-  If non-empty, will pass `V=1` to all `make` invocations, making `make` output
-  verbose.
-
-  Note that any given value is ignored. The variable is only checked for
-  emptiness. More concretely, this means that `V=` (setting `V` to the empty
-  string) is interpreted the same way as not setting `V` at all, and that `V=0`
-  has the same effect as `V=1`.
+  If non-empty, will pass it to all `make` invocations, setting `make` output
+  verbosity.
 
 * _**ADDITIONAL_GUIX_ENVIRONMENT_FLAGS**_
 
