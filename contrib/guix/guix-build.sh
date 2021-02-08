@@ -9,7 +9,7 @@ MAX_JOBS="${MAX_JOBS:-$(nproc)}"
 
 # Download the depends sources now as we won't have internet access in the build
 # container
-make -C "${PWD}/depends" -j"$MAX_JOBS" download ${V:+V=$V} ${SOURCES_PATH:+SOURCES_PATH="$SOURCES_PATH"}
+make -C "${PWD}/depends" -j"$MAX_JOBS" download ${V:+V=$V} ${ADDITIONAL_MAKE_FLAGS:+$ADDITIONAL_MAKE_FLAGS} ${SOURCES_PATH:+SOURCES_PATH="$SOURCES_PATH"}
 
 # Determine the reference time used for determinism (overridable by environment)
 SOURCE_DATE_EPOCH="${SOURCE_DATE_EPOCH:-$(git log --format=%at -1)}"
@@ -113,6 +113,7 @@ for host in ${HOSTS=x86_64-linux-gnu arm-linux-gnueabihf aarch64-linux-gnu riscv
                                         MAX_JOBS="$MAX_JOBS" \
                                         SOURCE_DATE_EPOCH="${SOURCE_DATE_EPOCH:?unable to determine value}" \
                                         V="$V" \
+                                        ADDITIONAL_MAKE_FLAGS="$ADDITIONAL_MAKE_FLAGS" \
                                         ${SOURCES_PATH:+SOURCES_PATH="$SOURCES_PATH"} \
                                       bash -c "cd /bitcoin && bash contrib/guix/libexec/build.sh"
     )

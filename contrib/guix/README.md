@@ -142,6 +142,10 @@ find output/ -type f -print0 | sort -z | xargs -r0 sha256sum
   If non-empty, will pass it to all `make` invocations, setting `make` output
   verbosity.
 
+* _**ADDITIONAL_MAKE_FLAGS**_
+
+  Additional flags to be passed to `make`.
+
 * _**ADDITIONAL_GUIX_ENVIRONMENT_FLAGS**_
 
   Additional flags to be passed to `guix environment`. For a fully-bootstrapped
